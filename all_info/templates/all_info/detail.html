@@ -1,0 +1,26 @@
+
+{% block main_content %}
+현재 로그인 되어있는 사람 :  {{request.session.info_id}}
+
+<h1>id : {{user.info_id}}</h1>
+<h1>이름 : {{user.name}}</h1>
+<h1>지역 : {{user.region}}</h1>
+<h1>성 : {{user.sex}}</h1>
+<h1>취미 : {{user.preference}}</h1>
+<h1>나이 : {{user.age}}</h1>
+
+{% if request.session.info_id %}
+<form action="/profile/update/{{user.info_id}}/">
+    <input type="submit" value='수정하기'></input>
+
+    {% csrf_token %}
+</form>
+<form action="/profile/delete/{{user.info_id}}/">
+    <input type="submit" value='탈퇴하기'></input>
+
+    {% csrf_token %}
+</form>
+
+{% endif %}
+
+{% endblock %}

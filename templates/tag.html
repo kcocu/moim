@@ -1,0 +1,22 @@
+<input type="text" name='tag'>
+
+<script>
+    const input = document.querySelector('[name=tag]');
+    input.addEventListener('focus', (e) =>{
+      let tag = e.currentTarget.value;
+      if(tag.length == 0) {
+        e.currentTarget.value = '#'
+      }
+    });
+  
+    input.addEventListener('keyup', (e) =>{
+      let keyCode = e.keyCode;
+      if(keyCode == 32){
+        e.target.value=
+          e.target.value.substring(
+            0, e.target.value.length - 1
+          )
+        e.target.value += ',#'
+      }
+    })
+  </script>

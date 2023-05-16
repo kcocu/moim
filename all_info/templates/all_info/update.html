@@ -1,0 +1,23 @@
+
+{% block main_content %}
+<form action="/profile/update/{{user.info_id}}/" method='post'>
+{% csrf_token %}
+아이디 : <input type="text" name="info_id" id="info_id" value="{{user.info_id}}">
+<br>
+이름 : <input type="text" name="name" id="name" value="{{user.name}}">
+<br>
+지역 : <input type="text" name="region" id="region" value="{{user.region}}">
+<br>
+성별 : <select name="sex" id="sex" value="{{user.sex}}">
+    <option value="남">남</option>
+    <option value="여">여</option>
+    <option value="양성">양성</option>
+    <option value="없음">없음</option>
+</select>
+<br>
+취미 : <input type="text" name="preference" id="preference" value="{{user.preference}}">
+<br>
+나이 : <input type="text" name="age" id="age" value="{{user.age}}">
+    <input type="submit" value='수정하기'></input>
+</form>
+{% endblock %}

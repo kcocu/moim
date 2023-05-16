@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{single_gallery.title}}</title>
+</head>
+<body>
+    <h1>{{make_moim.name}} 갤러리</h1>
+<nav>
+    <a href="/write/gallery/{{make_moim.make_id}}">갤러리로 이동</a>
+</nav>
+    <h1>제목 : {{single_gallery.title}}</h1>
+    <hr>
+    <h3>작성자 : {{single_gallery.info.info_id}}<h3>
+    <h4>작성 일자 : {{single_gallery.write_dttm}}</h4>
+    <hr>
+    {% if single_gallery.manyimg_set.all %}
+        {% for imgfile in single_gallery.manyimg_set.all %}
+            <td><img src="/media/gallery/{{imgfile.imgfile}}/" alt="사진이 지워졌습니다." style = 'width: 400px';></td>
+            <form action="/write/download/" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="manyimg_id" value="{{imgfile.manyimg_id}}">
+                {% csrf_token %}
+            <button name='download_gallery_bt'>다운로드</button>
+            <hr>
+            </form>
+        {% endfor %}
+    {% else %}
+    <img src="/static/default.jpg/" alt="defult">
+    {% endif %}
+    <hr>
+    <p>{{single_gallery.comment}}</p>
+    <form action="/write/gallery/{{make_moim.make_id}}/{{single_gallery.gallery_id}}/modify/" method="post">        
+        <input type="hidden" name="writer" value='{{single_gallery.info.info_id}}'>{% csrf_token %}
+        <button>수정</button></form>
+    <form action="/write/gallery/{{make_moim.make_id}}/{{single_gallery.gallery_id}}/delete/" method="post">
+        <input type="hidden" name="writer" value='{{single_gallery.info.info_id}}'>
+        {% csrf_token %}<button>삭제</button></form>
+</body>
+</html>

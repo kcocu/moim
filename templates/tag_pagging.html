@@ -1,0 +1,17 @@
+<tbody>
+    <ul>
+    {% if page_tag > 10 %}
+        <a href="/search/?page_tag={{page_tag | add:'-10'}}">이전</a>
+    {% endif %}
+    {% for p in page_info_tag %}
+        {% comment %} <li {% if p == page %} active {% endif %}> {% endcomment %}
+        <a href="/search/?page_tag={{p}}">
+        {{p}}
+        </a></li>
+    {% endfor %}
+    {% if tag_page > e_page_tag %}
+        <a href="/search/?page_tag={{page_tag | add:'10'}}">다음</a>
+    {% endif %}
+    </ul>
+
+</tbody>

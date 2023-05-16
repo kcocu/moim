@@ -1,0 +1,122 @@
+<head>
+{% include 'head.html' %}
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+      
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+{% include 'header_main.html' %}
+
+  <main id="main">
+
+
+    <!-- ======= Ctab Section ======= -->
+    <section class="inner-page">
+      <div class="container">
+        <section id="ctab" class="ctab">
+          <div class="container">
+            {% block main_content %}
+            <div>
+              <tbody>
+          {% for m in moim_lists%}
+          <div>
+          <a href="/board_moim/{{m.make_id}}/" style='color: blue;'>자세히보기</a>
+          <label for="id"></label>
+          <input type="hidden" name='id' value="{{m.make_id}}" readonly>
+
+          <label for="category">카테고리 : </label>
+          <input type="text" name='category' value="{{m.category}}" readonly style="border: 0;">
+
+          <hr>
+          <b style="font-size: xx-small;">태그 : 
+            {% for t in m.tagmoim_set.all %}
+               {{t.tag.name}}
+              <input type="hidden" name='tag' value="{{t.tag.name}}">
+            {% endfor %}</b>
+          <hr>
+          <label for="name"></label>
+          <input type="text" name='name' value="{{m.name}}" readonly style="border: 0; font-size: larger;" >
+          <label for="commend"></label>
+          <textarea class="form-control" row='4' cols='50' style=''>모임소개 : {{m.commend}}</textarea>
+          <br>
+          <br>
+          <br>
+          {% if m.imgfile %}
+          <label for="imgfile"></label>
+          <img src="/media/{{m.imgfile}}" alt="{{m.name}} " style= 'width : 300px'>
+          {% else %}
+          <label for="imgfile">이미지</label>
+          <img src="/static/default.jpg" alt="{{m.name}} " style= 'width : 300px'>
+          {% endif %}
+      <br>
+          <label for="location" style="border: 0; font-size: larger;">지역/최대인원/현재인원</label>
+          <br>
+          <input type="text" name='location' value="{{m.location}}/       {{m.max_people}}        /       {{m.groupinfo_set.count}}" readonly style="border: 0;">
+      
+
+          <hr>
+          </div>
+      
+      
+          {% endfor %}
+      </tbody>
+      </div>
+      <tbody>
+          <ul>
+          {% if page > 10 %}
+              <a href="/board_moim/list/?page={{page | add:'-10'}}">이전</a>
+          {% endif %}
+          {% for p in page_info %}
+              {% comment %} <li {% if p == page %} active {% endif %}> {% endcomment %}
+              <a href="/board_moim/list/?page={{p}}">
+              {{p}}
+              </a></li>
+          {% endfor %}
+          {% if total_page > e_page %}
+              <a href="/board_moim/list/?page={{page | add:'10'}}">다음</a>
+          {% endif %}
+          </ul>
+      
+      </tbody>
+          {% csrf_token %}
+            {% endblock %}
+
+          </div>
+        </section><!-- End Ctab Section -->
+      </div>
+    </section>
+
+
+  <!-- 검색기능 -->
+  <div>
+    {% include 'board_moim/search_bar.html' %}
+  </div>  
+  
+  </main><!-- End #main -->
+
+
+  <!-- ======= Footer ======= -->
+{% include 'footer_main.html' %}
+
+  <!-- Vendor JS Files -->
+  <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/static/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/static/assets/js/main.js"></script>
+
+</body>
+
+</html>

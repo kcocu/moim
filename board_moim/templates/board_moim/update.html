@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  {% include 'head.html' %}
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+      
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  {% include 'header_main.html' %}<!-- End Header -->
+
+  <main id="main">
+
+
+    <!-- ======= Ctab Section ======= -->
+    <section class="inner-page">
+      <div class="container">
+        <section id="ctab" class="ctab">
+          <div class="container">
+           
+{% block left_menu %}
+{% endblock left_menu %}
+{% block main_content %}
+<form action="/board_moim/update/{{make_moim.make_id}}/" method='post'>
+{% csrf_token %}
+<div>
+</div>
+
+    <h1>모임명 : <input type="text" name="name" id="name" value="{{make_moim.name}}"></h1>
+    
+    <hr>
+    <input type="hidden" name="make_id" value="{{make_moim.make_id}}">
+    <label for="imgfile"></label>
+    {% if imgfile %}
+    <img style="height: 500px;" src="/media/{{make_moim.imgfile}}/" alt="토끼" name="imgfile">
+    {% else %}
+    <img style="height: 500px;" src="/static/default.jpg" alt="토끼기본" name="imgfile">    
+    {% endif %}
+    <hr>
+
+    <h4>지역 : <input type="text" name="location" id="location" value="{{make_moim.location}}"></h4>
+    <hr>
+    <h5>최대인원 : <select name="max_people" id="max_people">
+      {% include 'max_people.html' %}
+    </select>(현재 최대 인원 : {{make_moim.max_people}})</h5>
+    <br>
+    <h5>현재인원 : {{make_moim.now_people}}</h5>
+
+    <h5>카테고리 : <select name="category" id="category">
+      {% include 'category.html' %}
+    </select>
+    태그 : {% include 'tag.html' %}
+    <p style="font-size: xx-small;">      
+      {% for t in make_moim.tagmoim_set.all %}
+        {{t.tag.name}}
+      {% endfor %}◀현재태그</p>
+    <hr>
+    <h5>모임 : "{{make_moim.name}}" 의 소개입니다.</h5>
+    <textarea class="form-control" name="commend" >{{make_moim.commend}}</textarea>
+
+    <h6>모임에 가입한 회원_추방하기 :
+      {% for n in make_moim.groupinfo_set.all %}
+      <form action="/board_moim/{{make_moim.make_id}}/kick/" method="post">
+        {% csrf_token %}
+      <input type="text" name="info_kick" value="{{n.info.info_id}}" style="border: 0;">  ,
+        <span style="font-size: xx-small;"><button style="border: 0;background-color: transparent;">추방</button></span>
+        <br>
+      </form>
+      {% endfor %}
+
+  </h6>
+
+    <h1>위의 내용 수정하기!!
+        <button>수정하기</button>
+    </h1>
+</form>
+    <hr>
+    <button type="button"><a href="/board_moim/list/"> 목록</a></button>
+    <button type="button"><a href="/board_moim/{{make_moim.make_id}}/">이전</a></button>
+    <form action="/board_moim/delete/{{make_moim.make_id}}/"><button value="삭제" name="delete">삭제</button></form>
+    <hr>
+    <form action="" method="post">가입 신청
+        <input type="text" name="comment"> <br>
+        <input type="text" name="id" id="id" value=""> !가입희망자
+        <button>입력</button>
+        {% csrf_token %}
+    </form>
+    {% for good in goods %}
+        <h4> {{good.good}} </h3>
+    {% endfor %}
+
+
+{% endblock  %}
+ 
+
+          </div>
+        </section><!-- End Ctab Section -->
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  {% include 'footer_main.html' %}<!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-down d-flex align-items-center justify-content-center"><i class="bi bi-arrow-down-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/static/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/static/assets/js/main.js"></script>
+
+</body>
+
+</html>

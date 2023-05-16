@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>yes or no</title>
+    {% block main_content %}
+    <form action="/make_moim/signup/" method="post">
+      <h1>{{id.info_id}}님(을/를) {{make_moim.name}}에 초대 하시겠습니까?</h1>
+      <button type='button' name="yes">{% csrf_token %}YES</button> 
+      <input type="hidden" name="make_id" value="{{make_moim.make_id}}">
+      <input type="hidden" name="comment_id" value="{{id.info_id}}">
+      <input type="hidden" name="selected">
+      <button type='button' name="no">{% csrf_token %}NO</button>
+  </form>
+  
+  <script>
+      form = document.querySelector('form')
+      yes = document.querySelector('[name=yes]')
+      no = document.querySelector('[name=no]')
+  
+      yes.addEventListener('click', (e) => {
+          document.querySelector('[name=selected]').value = 'Y'
+          form.submit()
+      })
+      no.addEventListener('click', (e) => {
+          document.querySelector('[name=selected]').value = 'N'
+          form.submit()
+      })
+  </script>  
+    {% endblock %}
+    <!--<script>
+        var result = confirm("{{id.info_id}}님(을/를) {{make_moim.name}}에 초대 하시겠습니까?")
+
+       if(result){
+        alert("{{id.info_id}}님(을/를) 초대하셨습니다.")
+        location = "/board_moim/{{make_moim.make_id}}"
+       }
+       else{
+        alert("초대가 취소되었습니다.")
+        location = "/board_moim/{{make_moim.make_id}}"
+       } -->
+    </script>
+</head>
+<body>
+</body>
+</html>

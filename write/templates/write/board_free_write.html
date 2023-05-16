@@ -1,0 +1,21 @@
+{% comment %} {% extends 'home/index.html'%} {% endcomment %}
+{% comment %} {% block contents %} {% endcomment %}
+<div>게시판 글쓰기!</div>
+<form action="/write/free/{{make_moim.make_id}}/free_write/" method="POST" enctype="multipart/form-data>
+
+    {% for form in forms %}
+    {% csrf_token %}
+
+    <div>
+        <label for="{{ form.id_for_label}}">{{form.label}}</label>
+        
+        {{form}}
+    </div>
+    {% endfor %}
+
+    {% if error %}
+    {{ error}}
+    {% endif %}
+    <button>작성</button>
+</form>
+{% comment %} {% endblock contents %} {% endcomment %}

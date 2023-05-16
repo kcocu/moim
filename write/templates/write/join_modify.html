@@ -1,0 +1,18 @@
+<div>
+
+    <form action="/write/join/{{make_moim.make_id}}/modify2/" method="post">
+        {% csrf_token %}
+    <h1>모임 : {{make_moim.name}}</h1>
+    <input type="hidden" name='join_id' value="{{join.join_id}}">
+    <p>게시번호 {{join.join_id}} 수정입니다.</p>
+    <h5>"{{writer}}" 님의 인사창입니다.</h5>
+    제목 : <input type="text" name="title" value='{{join.title}}'>
+    <br>
+    <input type="hidden" name="writer" value='{{writer}}' readonly>
+    내용 :<textarea class="form-control" name="comment">{{join.comment}}</textarea>
+    <input type="hidden" name='make_moim' value="{{make_moim.make_id}}">
+    <button>등록</button>
+    </form>
+    <hr>
+
+</div>

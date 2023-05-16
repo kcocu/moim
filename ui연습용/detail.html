@@ -1,0 +1,68 @@
+
+{% block left_menu %}
+{% include 'write/board_menu.html' %}
+{% endblock left_menu %}
+{% block main_content %}
+<div>
+</div>
+
+    <h1>{{make_moim.name}}</h1>
+
+    
+    <hr>
+
+    <label for="imgfile"></label>
+    {% if imgfile %}
+    <img style="height: 500px;" src="/media/{{make_moim.imgfile}}/" alt="토끼" readonly>
+    {% else %}
+    <img style="height: 500px;" src="/static/default.jpg" alt="토끼기본" readonly>    
+    {% endif %}
+
+    <hr>
+
+    <h4>지역 : {{make_moim.location}}</h4>
+    <hr>
+    <h5>최대인원 : {{make_moim.max_people}}</h5>
+    <br>
+    <h5>현재인원 : {{groupinfo.count}}</h5>
+
+    <hr>
+    <h5>모임 : "{{make_moim.name}}" 의 소개입니다.</h5>
+    <textarea class="form-control" readonly>{{make_moim.commend}}</textarea>
+
+    <hr>
+    <h6>모임에 가입한 회원 :
+        {% for n in make_moim.groupinfo_set.all %}
+        {{n.info.info_id}} ,
+        {% endfor %}
+
+    </h6>
+
+    <hr>
+    <button type="button"><a href="/board_moim/list/"> 목록</a></button>
+    <form action="/board_moim/update/{{make_moim.make_id}}/"><button value="수정" name="update">수정</button></form>
+    <form action="/board_moim/delete/{{make_moim.make_id}}/"><button value="삭제" name="delete">삭제</button></form>
+    <hr>
+    <form action="/board_moim/comment/" method="post">가입 신청 :
+        <input type="text" name="comment">  <br>
+        <input type="hidden" name="id" value="{{make_moim.make_id}}"> !가입희망자
+        <button>입력</button>
+        {% csrf_token %}
+    </form>
+    <!-- 댓글 되나 가서 확인할 것 -->
+    {% for comment in comments %}
+        <h4> {{comment.content}} </h4>
+        <h6> {{comment.info.name}} 
+           ID : {{comment.info.info_id}}<-
+            <form action="/make_moim/signup/" method="get">
+                <button name="invite">초대하기</button>
+                <input type="hidden" name="make_id" value="{{make_moim.make_id}}">
+                <input type="hidden" name="comment_id" value="{{comment.info.info_id}}">
+            </form>
+        </h6>
+        <h6> {{comment.created_at}} </h6>
+
+    {% endfor %}
+
+
+{% endblock  %}

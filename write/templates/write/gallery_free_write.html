@@ -1,0 +1,19 @@
+{% comment %} {% extends 'home/index.html'%} {% endcomment %}
+{% comment %} {% block contents %} {% endcomment %}
+<div>갤러리 글쓰기!</div>
+<form action="" method="POST">
+    <!-- {% csrf_token %} -->
+
+    {% for form in forms %}
+    <div>
+        <label for="{{ form.id_for_label}}">{{form.label}}</label>
+        {{form}}
+    </div>
+    {% endfor %}
+
+    {% if error %}
+    {{ error}}
+    {% endif %}
+    <button>작성</button>
+</form>
+{% comment %} {% endblock contents %} {% endcomment %}

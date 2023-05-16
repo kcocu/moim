@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Inner Page - Green Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/static/assets/img/favicon.png" rel="icon">
+  <link href="/static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/static/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Green - v4.10.0
+  * Template URL: https://bootstrapmade.com/green-free-one-page-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+      
+      </div>
+    </div>
+  </section>
+
+<body>
+  <!-- ======= Header ======= -->
+  {% include 'select_header.html' %}
+  <!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  {% include 'leftbar.html' %}
+  <!-- End Sidebar-->
+  
+  <main id="main">
+
+
+    <!-- ======= Ctab Section ======= -->
+    <section class="inner-page">
+      <div class="container">
+        <section id="ctab" class="ctab">
+          <div class="container">
+            {% block main_content %}
+            <tbody>
+                {% if gallery_list %}
+                    {% for g in gallery_list %}
+                        <hr>
+                        <td><h2 onclick='location="/write/gallery/{{make_moim.make_id}}/{{g.gallery_id}}/"'>제목 : {{g.title}}</h2></td>
+                        <hr>
+                        {% for imgfile in g.manyimg_set.all %}
+                        <td><img src="/media/gallery/{{imgfile.imgfile}}/" alt="사진이 지워졌습니다." style = 'width: 80px';></td>            
+                        {% endfor %}
+                        <hr>
+                        <td>내용 : {{g.comment}}</td>
+                        <br>
+                        <td>작성자 : {{g.info.info_id}}</td>
+                        <td>작성일자 :{{g.write_dttm}}</td>
+                        </tr>
+                        <hr>
+                
+                    {% endfor %}
+                {% else %}
+                        <h1>{{make_moim.name}} 갤러리</h1>
+                        <h1>작성된 글이 없습니다.</h1>
+                {% endif %}
+                <a href="/write/gallery/{{make_moim.make_id}}/gallery_makeit/">
+                    <button type="submit" name="img" style="margin-bottom: 200px;">사진올리기</button></a>
+                </a>
+                </tbody>
+                <tbody>
+                    <ul>
+                    {% if page > 10 %}
+                        <a href="/write/gallery/{{make_moim.make_id}}/?page={{page | add:'-10'}}">이전</a>
+                    {% endif %}
+                    {% for p in page_info %}
+                        {% comment %} <li {% if p == page %} active {% endif %}> {% endcomment %}
+                        <a href="/write/gallery/{{make_moim.make_id}}/?page={{p}}">
+                        {{p}}
+                        </a></li>
+                    {% endfor %}
+                    {% if total_page > e_page %}
+                        <a href="/write/gallery/{{make_moim.make_id}}/?page={{page | add:'10'}}">다음</a>
+                    {% endif %}
+                    </ul>
+                
+                </tbody>
+                {% include 'write/search_bar_gallery.html'%}
+                
+            {% endblock %}
+          </div>
+        </section><!-- End Ctab Section -->
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <h3>Green</h3>
+      <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
+      <div class="social-links">
+        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; Copyright <strong><span>Green</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/green-free-one-page-bootstrap-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-down d-flex align-items-center justify-content-center"><i class="bi bi-arrow-down-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/static/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/static/assets/js/main.js"></script>
+
+</body>
+
+</html>

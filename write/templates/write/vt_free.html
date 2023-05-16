@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    {% include 'head.html' %}
+</head>
+
+
+<body>
+    {% include 'header.html' %}
+
+    <main id="main">
+
+        <!-- ======= Ctab Section ======= -->
+        <section class="inner-page">
+          <div class="container">
+            <section id="ctab" class="ctab">
+              <div class="container">
+                {% block main_content %}
+
+    '{{make_moim.name}}' 모임의 게시판
+    <div><tr><td>
+        <li name="free_id" value=""> 게시글 : {{free.free_id}}</li></td>
+        <td><li name="title">제목 : {{free.title}}</li></td>
+        </tr><td><li name="text">내용 : {{free.text}}</li></td>
+        <td><li name="imgfile">이미지 : </li></td>
+        {% if free.imgfile %}
+        <img src="/media/{{free.imgfile}}/" width="400">
+        {% else %}
+        <img src='/static/default.jpg/' width='400'>
+        {% endif %}
+        <td><li name="write_dttm">작성일 :  {{free.write_dttm}}</li></td>
+
+        <td>
+            <a href="/write/viewtext/{{make_moim.make_id}}/{{free.free_id}}/delete/"><button>삭제</button></a>
+            <a href="/write/viewtext/{{make_moim.make_id}}/{{free.free_id}}/modify"><button>수정</button></a>
+        </td>
+
+        {% endblock %}
+              </div>
+            </section><!-- End Ctab Section -->
+          </div>
+        </section>
+    
+      </main><!-- End #main -->
+</body>
+
+</html>

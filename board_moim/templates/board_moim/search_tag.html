@@ -1,0 +1,57 @@
+{% for m in tag_list.tagmoim_set.all%}
+          <div>
+          <a href="/board_moim/{{m.make_moim.make_id}}/">자세히보기</a>
+          <label for="id">번호</label>
+          <input type="text" name='id' value="{{m.make_moim.make_id}}" readonly>
+
+          <label for="category">카테고리</label>
+          <input type="text" name='category' value="{{m.make_moim.category}}" readonly>
+
+          <hr>
+          <b>태그 : 
+            {% for t in tag_list %}
+               {{t.tag.name}}
+              <input type="hidden" name='tag' value="{{t.tag.name}}">
+            {% endfor %}</b>
+          <hr>
+          <label for="name">제목</label>
+          <input type="text" name='name' value="{{m.make_moim.name}}" readonly>
+      
+          <br>
+          {% if m.make_moim.imgfile %}
+          <label for="imgfile">이미지</label>
+          <img src="/media/{{m.make_moim.imgfile}}" alt="{{m.make_moim.name}} " style= 'width : 300px'>
+          {% else %}
+          <label for="imgfile">이미지</label>
+          <img src="/static/default.jpg" alt="{{m.make_moim.name}} " style= 'width : 300px'>
+          {% endif %}
+      
+          <label for="location">지역/최대인원/현재인원</label>
+          <input type="text" name='location' value="{{m.make_moim.location}}/{{m.make_moim.max_people}}/{{m.make_moim.groupinfo_set.count}}" readonly>
+      
+          <label for="commend">소개</label>
+          <textarea class="form-control" readonly>{{m.make_moim.commend}}</textarea>
+          <hr>
+          </div>
+      
+      
+          {% endfor %}
+      </tbody>
+      </div>
+      <tbody>
+          <ul>
+          {% if page_tag > 10 %}
+              <a href="/board_moim/list/search/?page_tag={{page_tag | add:'-10'}}">이전</a>
+          {% endif %}
+          {% for p in page_info_tag %}
+              {% comment %} <li {% if p == page %} active {% endif %}> {% endcomment %}
+              <a href="/board_moim/list/search/?page_tag={{p}}">
+              {{p}}
+              </a></li>
+          {% endfor %}
+          {% if tag_page > e_page_tag %}
+              <a href="/board_moim/list/search/?page_tag={{page_tag | add:'10'}}">다음</a>
+          {% endif %}
+          </ul>
+      
+      </tbody>

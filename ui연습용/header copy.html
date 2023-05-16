@@ -1,0 +1,30 @@
+<!-- ======= Header ======= -->
+<header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="index.html">Moim</a></h1>
+
+      <nav id="navbar" class="navbar"><!--네비게이션 바-->
+        <ul>
+          <li><a class="nav-link scrollto active" aria-current="page" href="/">Home</a></li>
+          <li class="dropdown"><a href="#"><span>모임</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/make_moim/">모임 만들기</a></li>
+              <li><a href="/select_moim/">모임 참석하기</a></li>
+              <li><a href="/board_moim/list/">모임 찾기</a></li>
+            </ul>
+          </li>
+          <!-- <li><a class="nav-link scrollto" href="/write/gallery/">갤러리</a></li>
+          <li><a class="nav-link scrollto" href="/write/free/">자유게시판</a></li> -->
+          {% if request.session.info_id %}
+          <li><a class="nav-link scrollto" href="/logout/">로그아웃</a></li>
+          {% else %}
+          <li><a class="nav-link scrollto" href="/login/">로그인</a></li>
+          {% endif %}
+          <li><a class="nav-link scrollto" href="/signup/">회원가입</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+</header><!-- End Header -->

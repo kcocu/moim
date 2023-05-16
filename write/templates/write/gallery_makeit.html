@@ -1,0 +1,39 @@
+{% extends 'homecopy.html' %} 
+{% block left_menu %}
+{% endblock left_menu %}
+{% block main_content %}
+
+<form action="/write/gallery/{{make_moim.make_id}}/gallery_makeit/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="table table-striped">
+<body>
+    <input type="hidden" name="make_moim" id="make_moim" value="{{make_moim.make_id}}">
+    <tr>
+        <th>제목</th>
+        <td>
+            <input name="title" id="title" type="text" style="width:700px" maxlength="200">
+        </td>
+    </tr>
+    <tr>
+        <th>사진</th>
+        <td>
+            <input type="file" name="imgfiles" multiple>
+        </td>
+    </tr>
+    <tr>
+        <th>내용 입력</th>
+        <th>
+            <textarea name="contents" id="contents" rows="15" cols="100"></textarea>
+        </th>
+    </tr>
+    <tr>
+        <th></th>
+        <td>
+            <button class="btn btn-primary" onclick="submitPost()">작성완료</button>
+        </td>
+    </tr>
+</form>
+</body>
+</table>
+</form>
+{% endblock  %}

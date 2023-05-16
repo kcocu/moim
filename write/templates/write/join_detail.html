@@ -1,0 +1,111 @@
+{% extends 'homecopy.html' %} 
+{% block left_menu %}
+{% include 'write/board_menu2.html' %}
+{% endblock left_menu %}
+{% block main_content %}
+<div>
+</div>
+</tbody>
+<tbody>
+    <ul>
+    {% if page > 10 %}
+        <a href="/write/join/{{make_moim.make_id}}/?page={{page | add:'-10'}}">이전</a>
+    {% endif %}
+    {% for p in page_info %}
+        {% comment %} <li {% if p == page %} active {% endif %}> {% endcomment %}
+        <a href="/write/join/{{make_moim.make_id}}/?page={{p}}">
+        {{p}}
+        </a></li>
+    {% endfor %}
+    {% if total_page > e_page %}
+        <a href="/write/join/{{make_moim.make_id}}/?page={{page | add:'10'}}">다음</a>
+    {% endif %}
+    </ul>
+
+</tbody>
+
+<tbody>
+<div>
+    {% for t in join_list %}
+    <div>
+        
+        <h6> {{t.title}} </h6>
+        <p> {{t.comment}} </p>
+        <h6> {{t.info.info_id}} </h6>
+        <h6> {{t.write_dttm}} </h6>
+        <form action="/write/join/{{make_moim.make_id}}/modify/" method="post">{% csrf_token %}<button value="수정" name="update">수정</button>        
+        <input type="hidden" name="writer" value="{{t.info.info_id}}">
+        <input type="hidden" name="join_id" value="{{t.join_id}}"></button>
+        </form>
+        <form action="/write/join/{{make_moim.make_id}}/delete/" method="post">{% csrf_token %}<button value="삭제" name="delete">삭제       
+        <input type="hidden" name="writer" value="{{t.info.info_id}}">
+        <input type="hidden" name="join_id" value="{{t.join_id}}"></button>
+        </form>
+        <button id='reply' name='reply'>답글</button>
+        <br>
+        <form action="/write/join/{{make_moim.make_id}}/comment/" method="post">
+        <span style="font-size: xx-small;" onclick="location='comment/'" >
+            <input type="hidden" name="join_id" value="{{t.join_id}}">
+            {% csrf_token %}
+            <button name="btn" style="border:0; background-color: white;">댓글상세보기</button>
+        </span></form>
+        {% include "write/join_comment.html" %}
+        <hr>
+        <div name="a" id='a' style="display: block;"></div>
+        <div name="b" id='b' style="display: none;">
+        <form action="/write/join/{{make_moim.make_id}}/comment/" method="post"><input type="text" name="reply_comment">
+            <input type="hidden" name="join_id" value="{{t.join_id}}">
+            {% csrf_token %}
+            <button>답글</button></form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div>
+
+    <form action="/write/join/{{make_moim.make_id}}/" method="post">
+        {% csrf_token %}
+    <h1>모임 : {{make_moim.name}}</h1>
+    <h5>"{{request.session.info_id}}" 님의 인사창입니다.</h5>
+    제목 : <input type="text" name="title">
+    <br>
+    <input type="hidden" name="writer" value='{{request.session.info_id}}' readonly>
+    <textarea class="form-control" name="comment">내용</textarea>
+    <input type="hidden" name='make_moim' value="{{make_moim.make_id}}">
+    <button>등록</button>
+    </form>
+    <hr>
+
+</div>
+<script>
+
+    const reply = document.getElementById('reply')
+    const allbtn = document.querySelectorAll(`#reply`)
+    const aa = document.querySelectorAll(`#a`)
+    const bb = document.querySelectorAll(`#b`)
+    console.log(bb[0].style.display)
+    console.log(bb[2])
+    console.log(aa[0].style.display)
+    console.log(aa[1])
+    console.log(allbtn[2])
+    console.log(allbtn[0])
+
+
+    /* 여기부분 어떻게 인접 선택자?? */
+    for (let i =0; i < allbtn.length; i++){
+        allbtn[i].addEventListener('click', (e) =>{ 
+
+            /*const a = document.getElementById(`a`)
+            const b = document.getElementById(`b`)*/
+            if (bb[i].style.display == 'none'){
+                aa[i].style.display = 'none';
+                bb[i].style.display = 'block';
+            }else{
+                aa[i].style.display = 'block';
+                bb[i].style.display = 'none';
+            }
+        })
+    }
+</script>
+{% endblock  %}
+

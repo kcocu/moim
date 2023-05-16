@@ -1,0 +1,10 @@
+{% if p.tag.exists %}
+    <i class='fas fa-tag'></i>
+    {% for tag in p.tag.iterator %}
+        <a href="{{tag.get_absolute_url}}">
+            <span class="'badge badge-pill badge-Light">{{tag}}</span>
+        </a>
+    {% endfor %}
+    <br>
+    <br>
+{% endif %}

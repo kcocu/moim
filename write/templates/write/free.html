@@ -1,0 +1,43 @@
+{% extends 'homecopy.html' %} 
+{% block left_menu %}
+{% endblock left_menu %}
+{% block main_content %}
+<body>
+<tbody>
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container" >
+    <div class="d-flex justify-content-between align-items-center" >
+          <h2>목록</h2>
+          <ol>
+            <li><a href="/select_moim/{{make_moim.make_id}}/">{{make_moim}}</a></li>
+            <li>자유게시판</li>
+          </ol>
+        </div>
+    </div>
+</section>
+
+{% include 'write/freeindex.html' %}
+<div><a href="/write/free/{{make_moim.make_id}}/free_write/"><button>글쓰기</button></a></div>
+</tbody>
+<tbody>
+    <ul>
+    {% if page > 10 %}
+        <a href="/write/free/{{make_moim.make_id}}/?page={{page | add:'-10'}}">이전</a>
+    {% endif %}
+    {% for p in page_info %}
+        {% comment %} <li {% if p == page %} active {% endif %}> {% endcomment %}
+        <a href="/write/free/{{make_moim.make_id}}/?page={{p}}">
+        {{p}}
+        </a></li>
+    {% endfor %}
+    {% if total_page > e_page %}
+        <a href="/write/free/{{make_moim.make_id}}/?page={{page | add:'10'}}">다음</a>
+    {% endif %}
+    </ul>
+
+</tbody>
+{% include 'write/search_bar_free.html'%}
+</body>
+{% endblock  %}
+
+</html>

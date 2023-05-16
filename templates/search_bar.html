@@ -1,0 +1,37 @@
+<div class="search-bar">
+    <form class="search-form d-flex align-items-center" method="POST" action="/search/">
+        {% csrf_token %}
+        <select style="border: none" name="search_b" id="search_b" onchange="changeValue(value)">
+          <option value="all">전체검색</option>
+          <option value="search_title">제목</option>
+          <option value="tag_title">태그</option>
+          <option value="category_title">카테고리</option>
+        </select>
+      <input type="hidden" name="change_search_bar" id="change_search_bar" value="all">
+      <input type="text" name="search" placeholder="Search" title="Enter search keyword">
+      <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+    </form>
+  </div><!-- End Search Bar -->
+
+
+
+
+  
+  <script>
+    const change_search_bar=document.getElementById('change_search_bar');
+    const changeValue = function(value){
+      console.log('값변경테스트 : ' + value);
+      change_search_bar.value = value;
+    }
+
+    /*const search_bar = document.getElementById('search_b')
+    const change_search_bar =  document.getElementById(`change_search_bar`).value
+    change_search_bar.addEventListener('change', (e)=>{
+      const options = e.currentTarget.options;
+      const index = e.currentTarget.options.selectedIndex;
+      change_search_bar.name = `${options[index]}`;
+    })    
+    console.log(change_search_bar)*/
+
+
+  </script>

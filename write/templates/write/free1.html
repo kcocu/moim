@@ -1,0 +1,12 @@
+{% extends 'homecopy.html' %} 
+{% block left_menu %}
+{% endblock left_menu %}
+{% block main_content %}
+<body>
+
+<div>게시판</div>
+{% include 'write/freeindex.html' %}
+<div><a href="{% url 'write:free_write' %}"><button>글쓰기</button></a></div>
+    
+</body>
+{% endblock  %}

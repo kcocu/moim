@@ -1,0 +1,15 @@
+<div>
+    <form action="/write/gallery/{{make_moim.make_id}}/{{single_gallery.gallery_id}}/modify2/" method='post' enctype="multipart/form-data">
+        {% csrf_token %}
+    <h6>{{make_moim.name}} 갤러리</h6>
+    <p>게시글 번호 : {{single_gallery.gallery_id}}</p>
+    <hr>
+    <h1>제목 : <input type="text" name="title" value="{{single_gallery.title}}"></h1>
+    <input type="hidden" name="writer" value="{{single_gallery.info.info_id}}">
+    <p onclick="location = '/write/gallery/{{make_moim.make_id}}/{{single_gallery.gallery_id}}/modify3/'"> 사진 자세히 보기</p>
+    <hr>
+    사진 추가 : <input type="file" name="imgfiles" multiple>
+    <p>내용 : <input type="text" name="comment" value="{{single_gallery.comment}}"></p>
+    <button name="modify_bt">수정</button>
+    </form>
+</div>

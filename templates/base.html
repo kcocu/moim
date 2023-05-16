@@ -1,0 +1,40 @@
+<style>
+    ul>li >a{
+        text-align: center;
+        font-size: 60px;
+    }
+    .remote_control{
+        width: 50px; height: 400px; background-color:green; position: fixed;;
+    }
+
+</style>
+<head>
+    {% include 'head.html' %}
+    
+</head>
+    
+
+
+</html>
+
+<body>
+    {% include 'header.html' %}
+
+    <main id="main">
+
+        <!-- ======= Ctab Section ======= -->
+        <section class="inner-page">
+          <div class="container">
+            <section id="ctab" class="ctab">
+              <div class="container">
+                {% block main_content %}
+                {% endblock %}
+              </div>
+            </section><!-- End Ctab Section -->
+          </div>
+        </section>
+    
+      </main><!-- End #main -->
+    
+    {% include 'footer_main.html' %}
+</body>

@@ -1,0 +1,20 @@
+<form action='/write/gallery/{{make_moim.make_id}}/{{single_gallery.gallery_id}}/modify/' method="post">
+    {% csrf_token %}
+    <button><h1 onclick>돌아가기</h1></button>
+    <input type="hidden" name="writer" value="{{single_gallery.info.info_id}}">
+</form>
+
+{% if single_gallery.manyimg_set.all %}
+{% for imgfile in single_gallery.manyimg_set.all %}
+    <form action="/write/gallery/{{make_moim.make_id}}/{{single_gallery.gallery_id}}/modify2/delete/" method='post'>
+    <td><img src="/media/gallery/{{imgfile.imgfile}}/" alt="사진이 지워졌습니다." style = 'width: 400px';></td>
+    {% csrf_token %} 
+    
+    <input type="hidden" name="manyimg_id" value="{{imgfile.manyimg_id}}">
+    <button name="delete_img_bt"> 사진지우기</button>
+    <hr>
+    </form>
+{% endfor %}
+{% else %}
+<img src="/static/default.jpg/" alt="defult">
+{% endif %}

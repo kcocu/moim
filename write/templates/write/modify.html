@@ -1,0 +1,10 @@
+<div>게시판 글수정</div>
+<form action="/write/viewtext/{{make_moim.make_id}}/{{board.free_id}}/modify/" method="POST">
+    {% csrf_token %}
+
+
+    제목 : <input type='text' name='title' value='{{ board.title }}'>
+    내용 : <textarea name='text'>{{ board.text }}</textarea>
+
+    <button>수정</button>
+</form>

@@ -1,0 +1,16 @@
+{% extends 'homecopy.html' %} 
+{% block left_menu %}
+{% include 'write/board_menu.html' %}
+{% endblock left_menu %}
+{% block main_content %}
+<body>
+    <form action="" method="post" enctype="">
+        {% csrf_token %}
+    
+        <div>가입인사</div>
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <input type="submit" value="글쓰기">
+    </form>
+</body>
+{% include 'write/join.html' %}
+{% endblock  %}

@@ -1,0 +1,16 @@
+<hr>
+<hr>
+<h4> 태그 검색 결과 입니다.</h4>
+<table>
+{% for i in tag_list %}
+    {% for j in i.tagmoim_set.all %}
+    태그명 : {{j.tag.name}}
+    <br>
+    <b onclick='location="/board_moim/{{j.make_moim.make_id}}/"'>
+    모임명 :   {{j.make_moim.name}}</b>
+    <br>
+    모임설명 : {{j.make_moim.commend}}
+    <hr>
+    {% endfor %}
+{% endfor %}
+</table>

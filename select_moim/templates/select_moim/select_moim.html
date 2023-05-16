@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  {% include 'head.html' %}
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+      
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  {% include 'select_header.html' %}<!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+
+    <!-- ======= Ctab Section ======= -->
+    <section class="inner-page">
+      <div class="container">
+        <section id="ctab" class="ctab">
+          <div class="container">
+            {% block main_content %}
+            {% if groupinfo %}   
+        {% for m in groupinfo%}
+        <div>
+        <a href="/select_moim/{{m.make_moim.make_id}}">자세히보기</a>
+        <label for="id">번호</label>
+        <input type="text" name='id' value="{{m.make_moim.make_id}}" readonly>
+            
+        <label for="name">제목</label>
+        <input type="text" name='name' value="{{m.make_moim.name}}" readonly>
+    
+        <br>
+        <hr>
+            {% if m.imgfile %}
+            <label for="imgfile">이미지</label>
+            <img src="/media/{{m.imgfile}}" alt="{{m.make_moim.name}} " style= 'width : 300px'>
+            {% else %}
+            <label for="imgfile">이미지</label>
+            <img src="/static/default.jpg" alt="{{m.make_moim.name}} " style= 'width : 300px'>
+            {% endif %}
+        <hr>
+        <label for="location">지역/최대인원/현재인원</label>
+        <input type="text" name='location' value="{{m.make_moim.location}}/{{m.make_moim.max_people}}/{{m.make_moim.groupinfo_set.count}}" readonly>
+    
+        <label for="commend">소개</label>
+        <textarea class="form-control" readonly>{{m.make_moim.commend}}</textarea>
+        <hr>
+        </div>
+    
+    
+        {% endfor %}
+            </tbody>
+        </div>
+        <tbody>
+        <ul>
+        {% if page > 10 %}
+            <a href="/board_moim/list/?page={{page | add:'-10'}}">이전</a>
+        {% endif %}
+        {% for p in page_info %}
+            {% comment %} <li {% if p == page %} active {% endif %}> {% endcomment %}
+            <a href="/board_moim/list/?page={{p}}">
+            {{p}}
+            </a></li>
+        {% endfor %}
+        {% if total_page > e_page %}
+            <a href="/board_moim/list/?page={{page | add:'10'}}">다음</a>
+        {% endif %}
+        </ul>
+        </tbody>
+            {% else %}
+            <h1>가입한 모임이 없습니다.</h1>
+            {% endif %}
+            {% endblock %}
+          </div>
+        </section><!-- End Ctab Section -->
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  {% include 'footer_main.html' %}<!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-down d-flex align-items-center justify-content-center"><i class="bi bi-arrow-down-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/static/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/static/assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+{% comment %} 여기를 부트스트랩에서 좌측으로 꾸미는 것 하기 {% endcomment %}
+<div>
+    <a href="/select_moim/"><button>모임선택</button></a>
+    <div class="text-end">
+        {% if request.session.info_id %}
+          <a href="/logout"><button type="button" class="btn btn-outline-light me-2">로그아웃</button></a>
+        {% else %}
+        <a href="/login"><button type="button" class="btn btn-outline-light me-2">로그인</button></a>
+        {% endif %}
+        <a href="/signup"><button type="button" class="btn btn-outline-warning me-2">회원가입</button></a>
+    </div>
+</div>
